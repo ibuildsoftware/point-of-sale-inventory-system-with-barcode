@@ -3,6 +3,19 @@
 // connect to the database
 include_once"ui/connectdb.php";
 
+session_start();
+
+// if login button is clicked : pass entered values to variables
+if(isset($_POST['btn_login'])) {
+
+$username = $_POST['txt_email'];
+$password = $_POST['txt_password'];
+
+echo $username." ".$password; // display the username and password after login
+
+}
+
+
 ?>
 
 <!DOCTYPE html>

@@ -14,7 +14,7 @@ try{
 
 
 // display success message
-echo 'connection success';
+//echo 'connection success';
 
 
 ?>
