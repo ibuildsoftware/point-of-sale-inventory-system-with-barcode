@@ -8,13 +8,31 @@ session_start();
 // if login button is clicked : pass entered values to variables
 if(isset($_POST['btn_login'])) {
 
-$username = $_POST['txt_email'];
-$password = $_POST['txt_password'];
 
-echo $username." ".$password; // display the username and password after login
+$password = $_POST['txt_password'];
+$useremail = $_POST['txt_email'];
+// echo $username." ".$password; // display the username and password after login
+
+// search for user input values inside the DB then execute the query
+$select = $pdo->prepare("select * from tbl_user where useremail='$useremail' AND userpassword='$password'");
+$select->execute();
+
+$row = $select->fetch(PDO::FETCH_ASSOC);
+
+
+// if $row values are equal to user input values
+if($row['useremail']==$useremail AND $row['userpassword']==$password){
+
+  echo $success = "login successful";
+  
+  // render page to dashboard.php
+  header('refresh: 1; ui/dashboard.php');
+  
+  }else{
+  echo $success = "Wrong email or password";
+  }
 
 }
-
 
 ?>
 
