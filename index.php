@@ -25,12 +25,20 @@ if(is_array($row)){
 
 
 // if $row values are equal to user input values
-if($row['useremail']==$useremail AND $row['userpassword']==$password){
+if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['role']=="Admin"){
 
-  echo $success = "login successful";
+  echo $success = "login successful by admin";
   
   // render page to dashboard.php
   header('refresh: 1; ui/dashboard.php');
+}else if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['role']=="User"){
+
+
+  echo $success = "login successful by user";
+  
+  // render page to user.php
+  header('refresh: 1; ui/user.php');
+
 } 
  
  
