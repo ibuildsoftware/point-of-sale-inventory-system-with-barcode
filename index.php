@@ -20,6 +20,10 @@ $select->execute();
 $row = $select->fetch(PDO::FETCH_ASSOC);
 
 
+if(is_array($row)){
+  
+
+
 // if $row values are equal to user input values
 if($row['useremail']==$useremail AND $row['userpassword']==$password){
 
@@ -27,10 +31,21 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password){
   
   // render page to dashboard.php
   header('refresh: 1; ui/dashboard.php');
+} 
+ 
+ 
   
-  }else{
+
+
+
+}else{
   echo $success = "Wrong email or password";
-  }
+}
+
+
+
+
+
 
 }
 
