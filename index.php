@@ -31,6 +31,15 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
   
   // render page to dashboard.php
   header('refresh: 1; ui/dashboard.php');
+
+
+
+  $_SESSION['userid'] = $row['userid'];
+  $_SESSION['username'] = $row['username'];
+  $_SESSION['useremail'] = $row['useremail'];
+  $_SESSION['role'] = $row['role'];
+
+
 }else if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['role']=="User"){
 
 

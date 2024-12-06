@@ -1,6 +1,14 @@
-
-
 <?php
+
+include_once 'connectdb.php';
+session_start();
+
+// if useremail field is empty
+if($_SESSION['useremail']==""){
+
+header('location:../index.php');
+
+}
 
 include_once"header.php";
 ?>
