@@ -33,7 +33,7 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
   header('refresh: 1; ui/dashboard.php');
 
 
-
+// for admin
   $_SESSION['userid'] = $row['userid'];
   $_SESSION['username'] = $row['username'];
   $_SESSION['useremail'] = $row['useremail'];
@@ -48,6 +48,13 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
   // render page to user.php
   header('refresh: 1; ui/user.php');
 
+
+
+  // for user
+  $_SESSION['userid'] = $row['userid'];
+  $_SESSION['username'] = $row['username'];
+  $_SESSION['useremail'] = $row['useremail'];
+  $_SESSION['role'] = $row['role'];
 } 
  
  
