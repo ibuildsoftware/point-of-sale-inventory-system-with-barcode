@@ -27,8 +27,13 @@ if(is_array($row)){
 // if $row values are equal to user input values
 if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['role']=="Admin"){
 
-  echo $success = "login successful by admin";
+ //echo $success = "login successful by admin";
   
+  $_SESSION['status']="Login succees by admin";
+  $_SESSION['status_code']="success";
+
+
+
   // render page to dashboard.php
   header('refresh: 1; ui/dashboard.php');
 
@@ -43,8 +48,12 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
 }else if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['role']=="User"){
 
 
-  echo $success = "login successful by user";
-  
+ // echo $success = "login successful by user";
+   
+  $_SESSION['status']="Login succees by user";
+  $_SESSION['status_code']="success";
+
+
   // render page to user.php
   header('refresh: 1; ui/user.php');
 
@@ -63,7 +72,13 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
 
 
 }else{
-  echo $success = "Wrong email or password";
+// echo $success = "Wrong email or password";
+
+  $_SESSION['status']="Wrong email or password or empty fields";
+  $_SESSION['status_code']="error";
+
+
+
 }
 
 
@@ -87,7 +102,14 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!--<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">-->
+
+ <!-- SweetAlert2 -->
+ <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
@@ -148,11 +170,40 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
 </div>
 <!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
 </body>
 </html>
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="plugins/toastr/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+<?php
+  if(isset($_SESSION['status']) && $_SESSION['status']!='') {
+  ?>
+  <script>
+  $(function(){
+      var Toast = Swal.mixin({
+         toast: true,
+         position: 'top',
+         showConfirmButton: false,
+         timer: 5000
+      });
+
+      Toast.fire({
+        icon: '<?php echo $_SESSION['status_code'];?>',
+        title: '<?php echo $_SESSION['status'];?>'
+      });
+
+  });
+  </script>
+  <?php
+  unset($_SESSION['status']);
+  }
+?>
