@@ -74,7 +74,7 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
 }else{
 // echo $success = "Wrong email or password";
 
-  $_SESSION['status']="Wrong email or password or empty fields";
+  $_SESSION['status']="Wrong email or password";
   $_SESSION['status_code']="error";
 
 
@@ -125,7 +125,7 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
 
       <form action="" method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="txt_email">
+          <input type="email" class="form-control" placeholder="Email" name="txt_email" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -133,7 +133,7 @@ if($row['useremail']==$useremail AND $row['userpassword']==$password and $row['r
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="txt_password">
+          <input type="password" class="form-control" placeholder="Password" name="txt_password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
