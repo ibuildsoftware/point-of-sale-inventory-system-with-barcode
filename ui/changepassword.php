@@ -6,6 +6,37 @@ session_start();
 
 
 include_once"header.php";
+
+
+
+// 1) Step 1: When user clicks on update password button, we extract user passwords from input fields and store them in variables
+
+
+if(isset($_POST['btnupdate'])){
+
+$oldpassword_txt=$_POST['txt_oldpassword'];
+$newpassword_txt=$_POST['txt_newpassword'];
+$rnewpassword_txt=$_POST['txt_rnewpassword'];
+
+
+echo $oldpassword_txt."-".$newpassword_txt."-".$rnewpassword_txt;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 
@@ -43,13 +74,13 @@ include_once"header.php";
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal">
+              <form class="form-horizontal" action="" method="post">
                 <div class="card-body">
                  
                 <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Old password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="inputPassword3" placeholder="Old password">
+                      <input type="password" class="form-control" id="inputPassword3" placeholder="Old password" name="txt_oldpassword">
                     </div>
                   </div>
 
@@ -57,21 +88,21 @@ include_once"header.php";
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">New password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="inputPassword3" placeholder="New password">
+                      <input type="password" class="form-control" id="inputPassword3" placeholder="New password" name="txt_newpassword">
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Repeat new password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="inputPassword3" placeholder="Repeat new password">
+                      <input type="password" class="form-control" id="inputPassword3" placeholder="Repeat new password" name="txt_rnewpassword">
                     </div>
                   </div>
                  
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-info">Sign in</button>
+                  <button type="submit" class="btn btn-info"name="btnupdate">Update password</button>
              
                 </div>
                 <!-- /.card-footer -->
