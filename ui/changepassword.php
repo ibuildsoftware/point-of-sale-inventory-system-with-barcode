@@ -19,7 +19,22 @@ $newpassword_txt=$_POST['txt_newpassword'];
 $rnewpassword_txt=$_POST['txt_rnewpassword'];
 
 
-echo $oldpassword_txt."-".$newpassword_txt."-".$rnewpassword_txt;
+// cho $oldpassword_txt."-".$newpassword_txt."-".$rnewpassword_txt;
+
+
+
+// 2) Step 2: using SELECT query we extract DB records according to useremail
+
+$email = $_SESSION['useremail'];
+
+$select = $pdo->prepare("select * from tbl_user where useremail='$email'");
+
+$select->execute();
+$row=$select->fetch(PDO:: FETCH_ASSOC);
+
+echo $row['useremail'];
+echo $row['username'];
+
 
 }
 
