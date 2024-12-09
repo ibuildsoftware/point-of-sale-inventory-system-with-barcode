@@ -19,7 +19,7 @@ $newpassword_txt=$_POST['txt_newpassword'];
 $rnewpassword_txt=$_POST['txt_rnewpassword'];
 
 
-// cho $oldpassword_txt."-".$newpassword_txt."-".$rnewpassword_txt;
+// echo $oldpassword_txt."-".$newpassword_txt."-".$rnewpassword_txt;
 
 
 
@@ -32,23 +32,14 @@ $select = $pdo->prepare("select * from tbl_user where useremail='$email'");
 $select->execute();
 $row=$select->fetch(PDO:: FETCH_ASSOC);
 
-echo $row['useremail'];
-echo $row['username'];
+// echo $row['useremail'];
+// echo $row['username'];
+
+$_SESSION['status']="Password changed successfully";
+$_SESSION['status_code']="success";
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -137,4 +128,20 @@ echo $row['username'];
 
 <?php
 include_once"footer.php";
+?>
+
+<?php
+  if(isset($_SESSION['status']) && $_SESSION['status']!='') {
+  ?>
+  <script>
+
+      Swal.fire({
+        icon: '<?php echo $_SESSION['status_code'];?>',
+        title: '<?php echo $_SESSION['status'];?>'
+      });
+
+  </script>
+  <?php
+  unset($_SESSION['status']);
+  }
 ?>
