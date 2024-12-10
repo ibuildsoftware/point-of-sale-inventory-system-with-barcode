@@ -6,7 +6,7 @@ include_once 'connectdb.php';
 session_start();
 
 // if useremail field is empty
-if($_SESSION['useremail']==""){
+if($_SESSION['useremail']=="" OR $_SESSION['role']=="Admin"){
 
 header('location:../index.php');
 
