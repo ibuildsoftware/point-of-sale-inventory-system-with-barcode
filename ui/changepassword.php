@@ -32,17 +32,36 @@ $select = $pdo->prepare("select * from tbl_user where useremail='$email'");
 $select->execute();
 $row=$select->fetch(PDO:: FETCH_ASSOC);
 
-// echo $row['useremail'];
-// echo $row['username'];
+$useremail_db = $row['useremail'];
+$password_db = $row['userpassword'];
 
-$_SESSION['status']="Password changed successfully";
-$_SESSION['status_code']="success";
 
+
+
+
+
+// 3) Step 3: Compare between user input values and DB values
+
+if($oldpassword_txt==$password_db){
+
+  if($newpassword_txt==$rnewpassword_txt){
+
+    $_SESSION['status']="Your password has been changed successfully";
+    $_SESSION['status_code']="success";
+
+  }else{
+    $_SESSION['status']="New passwords do not match";
+    $_SESSION['status_code']="error";
+
+  }
+ 
+}else{
+
+  $_SESSION['status']="Your old password is incorrect";
+  $_SESSION['status_code']="error";
 
 }
-
-
-
+}
 ?>
 
 
