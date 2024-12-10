@@ -46,22 +46,32 @@ if($oldpassword_txt==$password_db){
 
   if($newpassword_txt==$rnewpassword_txt){
 
+    // 4) Step 4: If values match then we'll run update query
+
+    $update = $pdo->prepare("update tbl_user set userpassword=:pass where useremail=:email");
+
+    $update->bindParam(':pass',$rnewpassword_txt);
+    $update->bindParam(':email',$email);
+
+    if($update->execute()){
+
     $_SESSION['status']="Your password has been changed successfully";
     $_SESSION['status_code']="success";
 
-  }else{
+    }}else{
+
     $_SESSION['status']="New passwords do not match";
     $_SESSION['status_code']="error";
 
-  }
+    }
  
 }else{
-
   $_SESSION['status']="Your old password is incorrect";
   $_SESSION['status_code']="error";
+}
+}
 
-}
-}
+
 ?>
 
 
