@@ -4,8 +4,24 @@
 include_once 'connectdb.php';
 session_start();
 
+// if useremail field is empty
+if($_SESSION['useremail']==""){
 
-include_once"header.php";
+  header('location:../index.php');
+  
+  }
+
+
+  if($_SESSION['role']=="Admin")
+  {
+    // show admin header
+    include_once "header.php";
+  }else{
+
+    // show user header
+    include_once "headeruser.php";
+  }
+
 
 
 
@@ -36,10 +52,6 @@ $useremail_db = $row['useremail'];
 $password_db = $row['userpassword'];
 
 
-
-
-
-
 // 3) Step 3: Compare between user input values and DB values
 
 if($oldpassword_txt==$password_db){
@@ -62,7 +74,6 @@ if($oldpassword_txt==$password_db){
 
     $_SESSION['status']="New passwords do not match";
     $_SESSION['status_code']="error";
-
     }
  
 }else{
@@ -70,7 +81,6 @@ if($oldpassword_txt==$password_db){
   $_SESSION['status_code']="error";
 }
 }
-
 
 ?>
 
