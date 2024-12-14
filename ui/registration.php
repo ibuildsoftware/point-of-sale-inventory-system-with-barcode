@@ -44,7 +44,7 @@ include_once"header.php";
 
               <div class="col-md-4">
 
-              <form>
+              <form action=="" method="post">
                 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
@@ -80,7 +80,43 @@ include_once"header.php";
                 </div>
               </form>
               </div>
-              <div class="col-md-8"><h2>8</h2></div>
+
+
+              <div class="col-md-8">
+              <table class="table table-striped">
+              <thead>
+                <tr>
+                  <td>#</td>
+                  <td>Name</td>
+                  <td>Email</td>
+               <!-- <td>Password</td> -->
+                  <td>Role</td>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- SELECT QUERY inside PHP code-->
+                <?php 
+                 $select = $pdo->prepare("select * from tbl_user order by userid ASC");
+                # $select = $pdo->prepare("select * from tbl_user order by userid desc");
+                $select->execute();
+
+                while($row=$select->fetch(PDO::FETCH_OBJ))
+                {
+                  echo'
+                  <tr>
+                    <td>'.$row->userid.'</td>
+                    <td>'.$row->username.'</td>
+                    <td>'.$row->useremail.'</td>
+                    <!-- <td>'.$row->userpassword.'</td> -->
+                    <td>'.$row->role.'</td>
+                  </tr>';
+                }
+                ?>
+              </tbody>
+              </table>
+
+
+              </div>
 
                 
               </div>
