@@ -65,8 +65,8 @@ include_once"header.php";
 
                   <div class="form-group">
                         <label>Role</label>
-                        <select class="form-control">
-                          <option>Select</option>
+                        <select class="form-control" name="txtselect_option">
+                          <option value="" disabled selected>Select role</option>
                           <option>Admin</option>
                           <option>User</option>
                           
@@ -83,7 +83,7 @@ include_once"header.php";
 
 
               <div class="col-md-8">
-              <table class="table table-striped">
+              <table class="table table-striped table-hover">
               <thead>
                 <tr>
                   <td>#</td>
@@ -91,6 +91,7 @@ include_once"header.php";
                   <td>Email</td>
                <!-- <td>Password</td> -->
                   <td>Role</td>
+                  <td>Delete</td>
                 </tr>
               </thead>
               <tbody>
