@@ -20,7 +20,11 @@ if(isset($_POST['btnsave'])){
     $select->execute();
 
     if($select->rowCount()>0){
-      echo 'Email already exists';
+    #  echo 'Email already exists';
+ 
+ $_SESSION['status']="Email already exists. Use another email address";
+ $_SESSION['status_code']="warning";
+      
     }else{
 
    $insert=$pdo->prepare("insert into tbl_user (username, useremail, userpassword, role) values(:name, :email, :password, :role)");
@@ -87,24 +91,24 @@ if(isset($_POST['btnsave'])){
                 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter name" name="txtname">
+                    <input type="text" class="form-control" placeholder="Enter name" name="txtname" required>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" placeholder="Enter email" name="txtemail">
+                    <input type="email" class="form-control" placeholder="Enter email" name="txtemail" required>
                   </div>
 
 
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" placeholder="Password" name="txtpassword">
+                    <input type="password" class="form-control" placeholder="Password" name="txtpassword" required>
                   </div>
              
 
                   <div class="form-group">
                         <label>Role</label>
-                        <select class="form-control" name="txtselect_option">
+                        <select class="form-control" name="txtselect_option" required>
                           <option value="" disabled selected>Select role</option>
                           <option>Admin</option>
                           <option>User</option>
