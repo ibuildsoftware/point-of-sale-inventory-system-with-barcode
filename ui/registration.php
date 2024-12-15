@@ -24,11 +24,14 @@ if(isset($_POST['btnsave'])){
   $insert->bindParam(':role', $userrole);
 
   if($insert->execute()){
-    echo 'Insert successfully the user into the database';
+    # echo 'Insert successfully the user into the database';
+    $_SESSION['status']="User successfully inserted into database";
+    $_SESSION['status_code']="success";
 
   }else{
-    echo 'Error inserting the user into the database';
-
+    # echo 'Error inserting the user into the database';
+    $_SESSION['status']="Error inserting user into database";
+    $_SESSION['status_code']="error";
   }
 
 }
@@ -161,4 +164,21 @@ if(isset($_POST['btnsave'])){
 
 <?php
 include_once"footer.php";
+?>
+
+
+<?php
+  if(isset($_SESSION['status']) && $_SESSION['status']!='') {
+  ?>
+  <script>
+
+      Swal.fire({
+        icon: '<?php echo $_SESSION['status_code'];?>',
+        title: '<?php echo $_SESSION['status'];?>'
+      });
+
+  </script>
+  <?php
+  unset($_SESSION['status']);
+  }
 ?>
