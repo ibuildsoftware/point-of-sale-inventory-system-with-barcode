@@ -8,32 +8,40 @@ include_once"header.php";
 
 # if SAVE button is clicked
 if(isset($_POST['btnsave'])){
-
   # variable = value of text field
   $username=$_POST['txtname'];
   $useremail=$_POST['txtemail'];
   $userpassword=$_POST['txtpassword'];
   $userrole=$_POST['txtselect_option'];
-  
+  # check if email field is set or not
+  if(isset($_POST['txtemail']))
+  {
+    $select=$pdo->prepare("select useremail from tbl_user where useremail='$useremail'");
+    $select->execute();
 
-  $insert=$pdo->prepare("insert into tbl_user (username, useremail, userpassword, role) values(:name, :email, :password, :role)");
+    if($select->rowCount()>0){
+      echo 'Email already exists';
+    }else{
 
-  $insert->bindParam(':name', $username);
-  $insert->bindParam(':email', $useremail);
-  $insert->bindParam(':password', $userpassword);
-  $insert->bindParam(':role', $userrole);
+   $insert=$pdo->prepare("insert into tbl_user (username, useremail, userpassword, role) values(:name, :email, :password, :role)");
 
-  if($insert->execute()){
-    # echo 'Insert successfully the user into the database';
-    $_SESSION['status']="User successfully inserted into database";
-    $_SESSION['status_code']="success";
-
-  }else{
-    # echo 'Error inserting the user into the database';
-    $_SESSION['status']="Error inserting user into database";
-    $_SESSION['status_code']="error";
+      $insert->bindParam(':name', $username);
+      $insert->bindParam(':email', $useremail);
+      $insert->bindParam(':password', $userpassword);
+      $insert->bindParam(':role', $userrole);
+    
+      if($insert->execute()){
+        # echo 'Insert successfully the user into the database';
+        $_SESSION['status']="User successfully inserted into database";
+        $_SESSION['status_code']="success";
+    
+      }else{
+        # echo 'Error inserting the user into the database';
+        $_SESSION['status']="Error inserting user into database";
+        $_SESSION['status_code']="error";
+      }
+    }
   }
-
 }
 ?>
 
