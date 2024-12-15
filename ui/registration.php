@@ -4,6 +4,34 @@ include_once 'connectdb.php';
 session_start();
 
 include_once"header.php";
+
+
+# if SAVE button is clicked
+if(isset($_POST['btnsave'])){
+
+  # variable = value of text field
+  $username=$_POST['txtname'];
+  $useremail=$_POST['txtemail'];
+  $userpassword=$_POST['txtpassword'];
+  $userrole=$_POST['txtselect_option'];
+  
+
+  $insert=$pdo->prepare("insert into tbl_user (username, useremail, userpassword, role) values(:name, :email, :password, :role)");
+
+  $insert->bindParam(':name', $username);
+  $insert->bindParam(':email', $useremail);
+  $insert->bindParam(':password', $userpassword);
+  $insert->bindParam(':role', $userrole);
+
+  if($insert->execute()){
+    echo 'Insert successfully the user into the database';
+
+  }else{
+    echo 'Error inserting the user into the database';
+
+  }
+
+}
 ?>
 
 
@@ -44,22 +72,22 @@ include_once"header.php";
 
               <div class="col-md-4">
 
-              <form action=="" method="post">
+              <form action="" method="post">
                 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter name">
+                    <input type="text" class="form-control" placeholder="Enter name" name="txtname">
                   </div>
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" placeholder="Enter email">
+                    <input type="email" class="form-control" placeholder="Enter email" name="txtemail">
                   </div>
 
 
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" name="txtpassword">
                   </div>
              
 
@@ -76,7 +104,7 @@ include_once"header.php";
 
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary" name="btnsave">Save</button>
                 </div>
               </form>
               </div>
