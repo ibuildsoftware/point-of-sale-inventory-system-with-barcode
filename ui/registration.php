@@ -3,7 +3,31 @@
 include_once 'connectdb.php';
 session_start();
 
-include_once"header.php";
+#include_once"header.php";
+
+
+// if useremail field is empty
+if($_SESSION['useremail']=="" OR $_SESSION['role']=="User"){
+
+  header('location:../index.php');
+  
+  }
+
+
+  if($_SESSION['role']=="Admin")
+  {
+    // show admin header
+    include_once "header.php";
+  }else{
+
+    // show user header
+    include_once "headeruser.php";
+  }
+
+
+
+
+
 
 # handling the warning message
 error_reporting(0);
