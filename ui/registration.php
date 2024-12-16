@@ -5,6 +5,34 @@ session_start();
 
 include_once"header.php";
 
+# handling the warning message
+error_reporting(0);
+
+
+
+$id=$_GET['id'];
+
+# check if id is set or not
+if(isset($id)){
+
+  $delete = $pdo->prepare("delete from tbl_user where userid =".$id);
+
+  if($delete->execute()){
+
+    $_SESSION['status']="Account deleted successfully"; 
+    $_SESSION['status_code']="success";
+
+
+  }else{
+    $_SESSION['status']="Account not deleted";
+    $_SESSION['status_code']="warning";
+  }
+
+}
+
+
+
+
 
 # if SAVE button is clicked
 if(isset($_POST['btnsave'])){
@@ -153,6 +181,12 @@ if(isset($_POST['btnsave'])){
                     <td>'.$row->useremail.'</td>
                     <!-- <td>'.$row->userpassword.'</td> -->
                     <td>'.$row->role.'</td>
+
+                    <td>
+                    <a href="registration.php?id='.$row->userid.'" class="btn btn-danger">
+                      <i class="fa fa-trash-alt"></i>
+                    </a>
+                    </td>
                   </tr>';
                 }
                 ?>
