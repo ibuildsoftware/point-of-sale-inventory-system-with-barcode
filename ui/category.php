@@ -5,6 +5,33 @@ include_once 'connectdb.php';
 session_start();
 
 include_once"header.php";
+
+
+# if save button is set
+if(isset($_POST['btnsave'])){
+
+$category = $_POST['txtcategory'];
+
+# if category field is empty: show error message
+if(empty($category)){
+    $_SESSION['status']="Category field is empty"; 
+    $_SESSION['status_code']="warning";
+}else{
+    # insert a new category in database
+    $insert = $pdo->prepare("insert into tbl_category (category) values(:cat)");
+    $insert->bindParam(':cat', $category);
+
+    if($insert->execute()){
+        $_SESSION['status']="Category added successfully"; 
+        $_SESSION['status_code']="success";
+    }else{
+        $_SESSION['status']="Category insertion failed";  
+        $_SESSION['status_code']="warning";
+    }
+}
+}
+
+
 ?>
 
 
@@ -121,4 +148,21 @@ include_once"header.php";
 
 <?php
 include_once"footer.php";
+?>
+
+
+<?php
+  if(isset($_SESSION['status']) && $_SESSION['status']!='') {
+  ?>
+  <script>
+
+      Swal.fire({
+        icon: '<?php echo $_SESSION['status_code'];?>',
+        title: '<?php echo $_SESSION['status'];?>'
+      });
+
+  </script>
+  <?php
+  unset($_SESSION['status']);
+  }
 ?>
