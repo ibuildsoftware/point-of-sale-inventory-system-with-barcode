@@ -67,28 +67,75 @@ if(empty($category)){
                 <h5 class="m-0">Category Form</h5>
               </div>
               <div class="card-body">
-
+              <form action="" method="post">
               <div class="row">
 
 
-              <div class="col-md-4">
+<?php
 
-              <form action="" method="post">
-                
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Category</label>
-                    <input type="text" class="form-control" placeholder="Enter category" name="txtcategory">
-                  </div>
+# if edit button is set: left form changes, else : insert a new record
+if(isset($_POST['btnedit'])){
+
+  # fetch category id using Edit button
+$select = $pdo->prepare("select * from tbl_category where catid =".$_POST['btnedit']);
+
+# execute query
+$select->execute();
+
+# if select variable is getting any value then show edit form
+if($select){
+
+  $row = $select->fetch(PDO::FETCH_OBJ);
+
+ # left form changes
+  echo'  <div class="col-md-4">
+            
+  <div class="form-group">
+    <label for="exampleInputEmail1">Category</label>
+
+    <input type="hidden" class="form-control" placeholder="Enter category" value="'.$row->catid.'" name="txtcatid">
+    <input type="text" class="form-control" placeholder="Enter category" value="'.$row->category.'" name="txtcategory">
+  </div>
+
+<div class="card-footer">
+  <button type="submit" class="btn btn-info" name="btnupdate">Update</button>
+</div>
+
+</div>
+
+';
+
+}
+
+
+# if select variable is empty then stick with the insertion form
+}else{
+
+echo'  <div class="col-md-4">
+    
+  <div class="form-group">
+    <label for="exampleInputEmail1">Category</label>
+    <input type="text" class="form-control" placeholder="Enter category" name="txtcategory">
+  </div>
+
+<div class="card-footer">
+  <button type="submit" class="btn btn-warning" name="btnsave">Save</button>
+</div>
+
+</div>
+
+';
+}
+
+?>
+
+
+
+
+
 
 
              
-
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-warning" name="btnsave">Save</button>
-                </div>
-              </form>
-              </div>
 
 
               <div class="col-md-8">
@@ -121,7 +168,7 @@ if(empty($category)){
                   </td>
 
                    <td>
-                    <button type="submit" class="btn btn-primary" value="'.$row->catid.'" name="btnedit">Edit</button>
+                    <button type="submit" class="btn btn-danger" value="'.$row->catid.'" name="btndelete">Delete</button>
                   </td>
                 </tr>';
                 }
@@ -134,7 +181,9 @@ if(empty($category)){
 
                 
               </div>
+              </form>
             </div>
+           
             </div>
            
 
