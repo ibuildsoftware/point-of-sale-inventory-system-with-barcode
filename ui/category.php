@@ -104,28 +104,28 @@ if(empty($category)){
               </thead>
               <tbody>
                 <!-- SELECT QUERY inside PHP code-->
-               <!-- <?php 
-               #  $select = $pdo->prepare("select * from tbl_user order by userid ASC");
-                # $select = $pdo->prepare("select * from tbl_user order by userid desc");
-              #  $select->execute();
+               <?php 
+                $select = $pdo->prepare("select * from tbl_category order by catid ASC");
+               
+                $select->execute();
 
-              #  while($row=$select->fetch(PDO::FETCH_OBJ))
-              #  {
-              #    echo'<tr>
-              #      <td>'.$row->userid.'</td>
-              #      <td>'.$row->username.'</td>
-               #     <td>'.$row->useremail.'</td>
-               #     <!-- <td>'.$row->userpassword.'</td> -->
-               #     <td>'.$row->role.'</td>
+                while($row=$select->fetch(PDO::FETCH_OBJ))
+                {
+                  echo'<tr>
+                    <td>'.$row->catid.'</td>
+                    <td>'.$row->category.'</td>
+                 
 
-               #     <td>
-               #     <a href="registration.php?id='.$row->userid.'" class="btn btn-danger">
-               #       <i class="fa fa-trash-alt"></i>
-               #     </a>
-                #    </td>
-                #  </tr>';
-               # }
-                ?> -->
+                   <td>
+                    <button type="submit" class="btn btn-primary" value="'.$row->catid.'" name="btnedit">Edit</button>
+                  </td>
+
+                   <td>
+                    <button type="submit" class="btn btn-primary" value="'.$row->catid.'" name="btnedit">Edit</button>
+                  </td>
+                </tr>';
+                }
+                ?>
               </tbody>
               </table>
 
