@@ -62,6 +62,25 @@ if(isset($_POST['btnupdate'])){
   
   
 
+  if(isset($_POST['btndelete'])){
+
+    $delete = $pdo->prepare("delete from tbl_category where catid=".$_POST['btndelete']);
+
+    if($delete->execute()){
+      $_SESSION['status']="Category deleted successfully"; 
+      $_SESSION['status_code']="success";
+
+    }else{
+      $_SESSION['status']="Category deletion failed";  
+      $_SESSION['status_code']="warning";
+
+    }
+
+
+
+  }else{
+
+  }
 
 ?>
 
@@ -212,7 +231,8 @@ echo'  <div class="col-md-4">
 
                 
               </div>
-              </form>
+            </form>
+
             </div>
            
             </div>
@@ -224,6 +244,7 @@ echo'  <div class="col-md-4">
     </div>
     <!-- /.content -->
   </div>
+  
   <!-- /.content-wrapper -->
 
 <?php
