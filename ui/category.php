@@ -189,7 +189,7 @@ echo'  <div class="col-md-4">
 
 
               <div class="col-md-8">
-              <table class="table table-striped table-hover">
+              <table id="table_category" class="table table-striped table-hover">
               <thead>
                 <tr>
                   <td>#</td>
@@ -224,6 +224,18 @@ echo'  <div class="col-md-4">
                 }
                 ?>
               </tbody>
+<tfoot>
+<tr>
+                  <td>#</td>
+                  <td>Category</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                
+                </tr>
+
+
+</tfoot>
+
               </table>
 
 
@@ -267,3 +279,13 @@ include_once"footer.php";
   unset($_SESSION['status']);
   }
 ?>
+
+
+
+<script>
+
+$(document).ready( function () {
+    $('#table_category').DataTable();
+} );
+
+</script>
