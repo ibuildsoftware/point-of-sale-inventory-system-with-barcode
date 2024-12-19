@@ -32,6 +32,37 @@ if(empty($category)){
 }
 
 
+
+
+
+# if save button is set
+if(isset($_POST['btnupdate'])){
+
+  $category = $_POST['txtcategory'];
+  $id = $_POST['txtcatid']; # from hidden text field
+  
+  # if category field is empty: show error message
+  if(empty($category)){
+      $_SESSION['status']="Category field is empty"; 
+      $_SESSION['status_code']="warning";
+  }else{
+      # update category
+      $update = $pdo->prepare("update tbl_category set category=:cat where catid=".$id);
+      $update->bindParam(':cat', $category);
+  
+      if($update->execute()){
+          $_SESSION['status']="Category updated successfully"; 
+          $_SESSION['status_code']="success";
+      }else{
+          $_SESSION['status']="Category update failed";  
+          $_SESSION['status_code']="warning";
+      }
+  }
+  }
+  
+  
+
+
 ?>
 
 
