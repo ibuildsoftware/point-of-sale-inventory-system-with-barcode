@@ -50,12 +50,12 @@ include_once"header.php";
               <div class="col-md-6">
 
               <div class="form-group">
-                    <label for="exampleInputEmail1">Barcode</label>
+                    <label>Barcode</label>
                     <input type="text" class="form-control" placeholder="Enter barode" name="txtbarcode" required>
                   </div>
               
               <div class="form-group">
-                    <label for="exampleInputEmail1">Product name</label>
+                    <label>Product name</label>
                     <input type="text" class="form-control" placeholder="Enter product name" name="txtproductname" required>
                   </div>
             
@@ -70,18 +70,48 @@ include_once"header.php";
                         </select>
                       </div>
 
-
+                 <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" placeholder="Enter description" name="txtdescription" rows="4" required>
+                    </textarea> 
+                  </div>
+            
 
               </div>
 
               <div class="col-md-6">
-              
-           
+                
+              <div class="form-group">
+                    <label>Stock quantity</label>
+                    <input type="number" min="1" step="any" class="form-control" placeholder="Enter stock quantity" name="txtstock" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Purchase price</label>
+                    <input type="number" min="1" step="any" class="form-control" placeholder="Enter purchase price" name="txtpurchaseprice" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Sale price</label>
+                    <input type="number" min="1" step="any" class="form-control" placeholder="Enter sale price" name="txtsaleprice" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Product image</label>
+                    <input type="file" class="input-group" name="productimage" required>
+                    <p>Upload image</p>
+                  </div>
 
               </div>
 
               </div>
+
               </div>
+              <div class="card-footer">
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" name="btnsave">Save product</button>
+                </div>
+                </div>
             </form>
 
 
