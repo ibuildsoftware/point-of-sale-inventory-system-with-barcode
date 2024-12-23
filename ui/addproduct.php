@@ -63,10 +63,21 @@ include_once"header.php";
                   <div class="form-group">
                         <label>Category</label>
                         <select class="form-control" name="txtselect_option" required>
-                          <option value="" disabled selected>Select role</option>
-                          <option>Admin</option>
-                          <option>User</option>
+                          <option value="" disabled selected>Select category</option>
                           
+                         <?php
+                         $select = $pdo->prepare("select * from tbl_category order by catid desc");
+                         $select->execute();
+
+                        while($row=$select->fetch(PDO::FETCH_ASSOC)) {
+                          extract($row);
+                          ?>
+                        <option><?php echo $row['category'];?></option>
+                      <?php
+                        }
+                         ?>
+
+                         
                         </select>
                       </div>
 
