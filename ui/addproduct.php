@@ -62,18 +62,30 @@ if($f_extension=='jpg' || $f_extension=='jpeg' || $f_extension=='png' || $f_exte
     # check image size
     if($f_size>=1000000) # greater than 1mega byte
     {
-        echo 'Your file max size should be 1 Mb';
+        # echo 'Your file max size should be 1 Mb';
+        $_SESSION['status']="Your file max size should be 1 Mb"; 
+        $_SESSION['status_code']="warning";
     }
     else{ // <1Mb
         if(move_uploaded_file($f_tmp,$store)){
-
-                echo 'File uploaded successfully';
+                # echo 'File uploaded successfully';
+               $productimage=$f_newfile; # fetch image name
+                if(empty($barcode)) # when barcode field is empty
+                {
+                  $_SESSION['status']="We'll write code here to generate barcode automatically"; 
+                  $_SESSION['status_code']="warning";
+                }else{
+                  // insert data into database
+                }
         }
     }
 }
 
 else{
-echo 'Only jpg, png and gif files are supported';
+# echo 'Only jpg, png and gif files are supported';
+
+$_SESSION['status']="Only jpg, jpeg, png and gif files are supported"; 
+$_SESSION['status_code']="warning";
 }
 
 
@@ -226,4 +238,21 @@ echo 'Only jpg, png and gif files are supported';
 
 <?php
 include_once"footer.php";
+?>
+
+
+<?php
+  if(isset($_SESSION['status']) && $_SESSION['status']!='') {
+  ?>
+  <script>
+
+      Swal.fire({
+        icon: '<?php echo $_SESSION['status_code'];?>',
+        title: '<?php echo $_SESSION['status'];?>'
+      });
+
+  </script>
+  <?php
+  unset($_SESSION['status']);
+  }
 ?>
