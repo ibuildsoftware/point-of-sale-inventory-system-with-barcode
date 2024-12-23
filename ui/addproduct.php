@@ -76,6 +76,26 @@ if($f_extension=='jpg' || $f_extension=='jpeg' || $f_extension=='png' || $f_exte
                   $_SESSION['status_code']="warning";
                 }else{
                   // insert data into database
+                  $insert=$pdo->prepare("insert into tbl_product(barcode, product, category, description, stock, purchaseprice, saleprice, image) 
+               values(:barcode, :product, :category, :description, :stock, :pprice, :saleprice, :img)");
+
+                  // bindParam to avoid sql injections
+                  $insert->bindParam(':barcode',$barcode);
+                  $insert->bindParam(':product',$product);
+                  $insert->bindParam(':category',$category);
+                  $insert->bindParam(':description',$description);
+                  $insert->bindParam(':stock',$stock);
+                  $insert->bindParam(':pprice',$purchaseprice);
+                  $insert->bindParam(':saleprice',$saleprice);
+                  $insert->bindParam(':img',$productimage);
+
+                  if($insert->execute()){
+                    $_SESSION['status']="Product inserted successfully"; 
+                    $_SESSION['status_code']="success";
+                  }else{
+                    $_SESSION['status']="Product insertion failed"; 
+                    $_SESSION['status_code']="error";
+                  }
                 }
         }
     }
@@ -137,7 +157,7 @@ $_SESSION['status_code']="warning";
               </div>
              
 
-              <form action="" method="post">
+              <form action="" method="post" enctype="multipart/form-data">
               <div class="card-body">
               <div class="row">
 
@@ -178,8 +198,7 @@ $_SESSION['status_code']="warning";
 
                  <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" placeholder="Enter description" name="txtdescription" rows="4" required>
-                    </textarea> 
+                    <textarea class="form-control" placeholder="Enter description" name="txtdescription" rows="4" required></textarea> 
                   </div>
             
 
