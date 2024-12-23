@@ -6,6 +6,89 @@ session_start();
 
 include_once"header.php";
 
+
+if(isset($_POST['btnsave'])){
+
+
+$barcode=$_POST['txtbarcode'];
+$product=$_POST['txtproductname'];
+$category=$_POST['txtselect_option'];
+$description=$_POST['txtdescription'];
+$stock=$_POST['txtstock'];
+$purchaseprice=$_POST['txtpurchaseprice'];
+$saleprice=$_POST['txtsaleprice'];
+
+
+
+$f_name=$_FILES['myfile']['name'];
+$f_tmp=$_FILES['myfile']['tmp_name'];
+
+#$store="upload/".$f_name; // folder name
+
+/*
+// move the uploaded file from temporary location to "upload" folder
+if(move_uploaded_file($f_tmp,$store)){
+echo 'file is uploaded';
+}
+*/
+
+// display image size in bytes
+// echo $f_size=$_FILES['myfile']['size'];
+
+
+// echo $f_extension = explode(".",$f_name);
+
+// $f_extension = explode(".",$f_name);
+// print_r($f_extension);
+
+# check type of file
+$f_size=$_FILES['myfile']['size'];
+$f_extension=explode('.',$f_name);
+
+
+// display image extension
+// echo $f_extension=end($f_extension);
+
+$f_extension=strtolower(end($f_extension));
+
+# echo $f_newfile=uniqid().'.'.$f_extension;
+$f_newfile=uniqid().'.'.$f_extension;
+$store="productimages/".$f_newfile;
+
+# check image extension
+if($f_extension=='jpg' || $f_extension=='jpeg' || $f_extension=='png' || $f_extension=='gif'){
+    # echo 'File uploaded successfully';
+
+    # check image size
+    if($f_size>=1000000) # greater than 1mega byte
+    {
+        echo 'Your file max size should be 1 Mb';
+    }
+    else{ // <1Mb
+        if(move_uploaded_file($f_tmp,$store)){
+
+                echo 'File uploaded successfully';
+        }
+    }
+}
+
+else{
+echo 'Only jpg, png and gif files are supported';
+}
+
+
+
+
+
+}
+
+
+// get barcode value from field
+
+
+
+
+
 ?>
 
 
@@ -77,7 +160,7 @@ include_once"header.php";
                         }
                          ?>
 
-                         
+
                         </select>
                       </div>
 
@@ -109,7 +192,7 @@ include_once"header.php";
 
                   <div class="form-group">
                     <label>Product image</label>
-                    <input type="file" class="input-group" name="productimage" required>
+                    <input type="file" class="input-group" name="myfile" required>
                     <p>Upload image</p>
                   </div>
 
