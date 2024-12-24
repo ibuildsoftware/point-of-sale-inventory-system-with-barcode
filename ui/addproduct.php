@@ -65,6 +65,8 @@ if($f_extension=='jpg' || $f_extension=='jpeg' || $f_extension=='png' || $f_exte
         # echo 'Your file max size should be 1 Mb';
         $_SESSION['status']="Your file max size should be 1 Mb"; 
         $_SESSION['status_code']="warning";
+
+
     }
     else{ // <1Mb
         if(move_uploaded_file($f_tmp,$store)){
@@ -72,8 +74,38 @@ if($f_extension=='jpg' || $f_extension=='jpeg' || $f_extension=='png' || $f_exte
                $productimage=$f_newfile; # fetch image name
                 if(empty($barcode)) # when barcode field is empty
                 {
-                  $_SESSION['status']="We'll write code here to generate barcode automatically"; 
-                  $_SESSION['status_code']="warning";
+                 # $_SESSION['status']="We'll write code here to generate barcode automatically"; 
+                 # $_SESSION['status_code']="warning";
+
+                 // insert data into database
+                 $insert=$pdo->prepare("insert into tbl_product(product, category, description, stock, purchaseprice, saleprice, image) 
+                 values(:product, :category, :description, :stock, :pprice, :saleprice, :img)");
+
+         // bindParam to avoid sql injections
+        # $insert->bindParam(':barcode',$barcode); 
+         $insert->bindParam(':product',$product);
+         $insert->bindParam(':category',$category);
+         $insert->bindParam(':description',$description);
+         $insert->bindParam(':stock',$stock);
+         $insert->bindParam(':pprice',$purchaseprice);
+         $insert->bindParam(':saleprice',$saleprice);
+         $insert->bindParam(':img',$productimage);
+
+         $insert->execute();
+         $pid=$pdo->lastInsertId();
+
+        date_default_timezone_set(date_default_timezone_get());
+        $newbarcode=$pid.date('his');
+
+        $update=$pdo->prepare("update tbl_product set barcode='$newbarcode' where pid='".$pid."'");
+        if($update->execute()){
+          $_SESSION['status']="Product inserted successfully"; 
+          $_SESSION['status_code']="success";
+        }else{
+          $_SESSION['status']="Product insertion failed"; 
+          $_SESSION['status_code']="error";
+        }
+
                 }else{
                   // insert data into database
                   $insert=$pdo->prepare("insert into tbl_product(barcode, product, category, description, stock, purchaseprice, saleprice, image) 
@@ -166,7 +198,7 @@ $_SESSION['status_code']="warning";
 
               <div class="form-group">
                     <label>Barcode</label>
-                    <input type="text" class="form-control" placeholder="Enter barode" name="txtbarcode" required>
+                    <input type="text" class="form-control" placeholder="Enter barode" name="txtbarcode">
                   </div>
               
               <div class="form-group">
